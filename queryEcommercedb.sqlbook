@@ -1,0 +1,134 @@
+-- SQLBook: Code
+-- CREATE TABLE
+--     `categories` (
+--         `id_category` int NOT NULL AUTO_INCREMENT,
+--         `name` varchar(45) NOT NULL,
+--         PRIMARY KEY (`id_category`)
+--     ) ENGINE = InnoDB AUTO_INCREMENT = 21 DEFAULT CHARSET = utf8mb3
+
+-- CREATE TABLE
+--     `orders` (
+--         `id_orders` int NOT NULL AUTO_INCREMENT,
+--         `name` varchar(45) NOT NULL,
+--         `id_user` int NOT NULL,
+--         `id_products` int DEFAULT NULL,
+--         PRIMARY KEY (`id_orders`),
+--         KEY `id_user_idx` (`id_user`),
+--         KEY `id_products` (`id_products`),
+--         CONSTRAINT `id_products` FOREIGN KEY (`id_products`) REFERENCES `products` (`id_product`),
+--         CONSTRAINT `id_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
+--     ) ENGINE = InnoDB AUTO_INCREMENT = 26 DEFAULT CHARSET = utf8mb3
+
+-- CREATE TABLE
+--     `products` (
+--         `id_product` int NOT NULL AUTO_INCREMENT,
+--         `name` varchar(45) NOT NULL,
+--         `id_category` int NOT NULL,
+--         PRIMARY KEY (`id_product`),
+--         KEY `id_category_idx` (`id_category`)
+--     ) ENGINE = InnoDB AUTO_INCREMENT = 41 DEFAULT CHARSET = utf8mb3
+
+-- CREATE TABLE
+--     `products-orders` (
+--         `id_productsorders` int NOT NULL AUTO_INCREMENT,
+--         `id_product` int NOT NULL,
+--         `id_orders` int NOT NULL,
+--         PRIMARY KEY (`id_productsorders`),
+--         KEY `id_product_idx` (`id_product`),
+--         KEY `id_orders_idx` (`id_orders`),
+--         CONSTRAINT `id_product` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`)
+--     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3
+
+-- CREATE TABLE
+--     `reviews` (
+--         `id_review` int NOT NULL AUTO_INCREMENT,
+--         `title` varchar(45) NOT NULL,
+--         `review_text` varchar(250) NOT NULL,
+--         `id_product` int NOT NULL,
+--         `id_user` int DEFAULT NULL,
+--         PRIMARY KEY (`id_review`),
+--         KEY `id_product_idx` (`id_product`),
+--         KEY `id_user` (`id_user`),
+--         CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
+--         CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `products` (`id_product`)
+--     ) ENGINE = InnoDB AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8mb3
+
+-- CREATE TABLE
+--     `users` (
+--         `id_user` int NOT NULL AUTO_INCREMENT,
+--         `name` varchar(45) NOT NULL,
+--         PRIMARY KEY (`id_user`)
+--     ) ENGINE = InnoDB AUTO_INCREMENT = 26 DEFAULT CHARSET = utf8mb3
+
+-- INSERT INTO orders (name, id_user)
+-- VALUES ('orderPepe', 22), ('orderIker', 21), ('orderPedro', 24), ('orderMaría', 25), ('orderJuan', 23);
+ 
+-- INSERT INTO categories (name)
+-- VALUES ('Literatura'), ('Música'), ('Juegos de mesa'), ('Calzado'), ('Ropa');
+
+-- UPDATE products SET precio=10 WHERE `id_product`=36;UPDATE products SET precio=30 WHERE `id_product`=37;UPDATE products SET precio=60 WHERE `id_product`=38;UPDATE products SET precio=80 WHERE `id_product`=39;UPDATE products SET precio=20 WHERE `id_product`=40;
+
+-- INSERT INTO products (name, id_category)
+-- VALUES ('Libro', 16), ('CD', 17), ('Trivial', 18), ('Zapatillas', 19), ('Camisa', 20);
+
+-- UPDATE products SET name = 'Vinilo' WHERE id_product = 37;
+
+-- UPDATE products SET precio = 50 WHERE id_product = 38;
+
+-- SELECT * FROM products WHERE precio > 20;
+
+-- SELECT * FROM products ORDER BY id_product DESC;
+
+-- SELECT id_product, products.name, products.id_category, categories.name FROM products 
+-- INNER JOIN categories ON products.id_category = categories.id_category;
+
+-- SELECT users.id_user, users.name, orders.id_orders, orders.name FROM users 
+-- INNER JOIN orders ON users.id_user = orders.id_user;
+
+-- SELECT products.*, categories.name AS categoría FROM products INNER JOIN categories 
+-- ON products.id_category = categories.id_category WHERE id_product = 40;
+
+-- SELECT users.*, id_orders, orders.name AS 'order' FROM users
+-- INNER JOIN orders ON users.id_user = orders.id_user WHERE users.id_user = 22;
+
+-- DELETE FROM products WHERE id_product = 39;
+
+-- UPDATE orders SET id_products = 36 WHERE id_orders = 21;
+-- UPDATE orders SET id_products = 37 WHERE id_orders = 22;
+-- UPDATE orders SET id_products = 38 WHERE id_orders = 23;
+-- UPDATE orders SET id_products = 40 WHERE id_orders = 24;
+-- UPDATE orders SET id_products = 40 WHERE id_orders = 25;
+
+-- INSERT INTO reviews (title, review_text, id_product, id_user)
+-- VALUES ('review Iker', 'opinión Iker', 37, 21), ('review Pepe', 'opinión Pepe', 36, 22),
+-- ('review Pedro', 'opinión Pedro', 38, 24), ('review María', 'opinión María', 40, 25),
+-- ('review Juan', 'opinión Juan', 40, 23);  
+
+-- UPDATE reviews SET title = 'review Pedro cambiada'
+-- WHERE id_review = 3;
+
+-- SELECT * FROM reviews;
+
+-- SELECT id_review, title, review_text, products.name AS product FROM reviews 
+-- INNER JOIN products ON reviews.id_product = products.id_product;
+
+-- SELECT id_review, title, review_text, products.name AS product FROM reviews 
+-- INNER JOIN products ON reviews.id_product = products.id_product
+-- WHERE reviews.id_product = 40;
+
+-- SELECT products.id_product, products.name, categories.name as category, reviews.title as 'review title', 
+-- reviews.review_text as 'review text' FROM products 
+-- INNER JOIN categories ON products.id_category = categories.id_category
+-- INNER JOIN reviews ON reviews.id_product = products.id_product;
+
+-- SELECT users.id_user, users.name AS 'user', products.name AS product, orders.id_orders,
+-- orders.name AS 'order' FROM products
+-- INNER JOIN orders ON products.id_product = orders.id_products
+-- INNER JOIN users ON orders.id_user = users.id_user WHERE users.id_user = 21;
+
+DELETE FROM reviews WHERE id_review = 5;
+
+
+
+
+
